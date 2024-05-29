@@ -21,47 +21,52 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <RelativeLayout
-        android:id="@+id/relativeLayout"
+    <EditText
+        android:id="@+id/pmpText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="100dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/theme_for_textinput"
+        android:fontFamily="@font/popins"
+        android:hint="Ask something..."
+        android:includeFontPadding="false"
+        android:padding="10dp"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="92dp"
+        android:layout_height="45dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:fontFamily="@font/popins"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:paddingStart="18dp"
+        android:paddingTop="3dp"
+        android:paddingEnd="18dp"
+        android:paddingBottom="3dp"
+        android:text="Send"
+        android:textSize="13sp"
+        app:icon="@drawable/send"
+        app:iconGravity="end"
+        app:iconSize="14dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/charRecycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/pmpText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/materialAutoCompleteTextView">
-
-        <EditText
-            android:id="@+id/pmpText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="105dp"
-            android:background="@drawable/theme_for_textinput"
-            android:fontFamily="@font/popins"
-            android:hint="Ask something..."
-            android:includeFontPadding="false"
-            android:padding="10dp"
-            android:textSize="16sp" />
-
-        <com.google.android.material.button.MaterialButton
-            android:layout_width="92dp"
-            android:layout_height="45dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginEnd="10dp"
-            android:fontFamily="@font/popins"
-            android:gravity="center"
-            android:includeFontPadding="false"
-            android:paddingStart="18dp"
-            android:paddingTop="3dp"
-            android:paddingEnd="18dp"
-            android:paddingBottom="3dp"
-            android:text="Send"
-            android:textSize="13sp"
-            app:icon="@drawable/send"
-            app:iconGravity="end"
-            app:iconSize="14dp" />
-    </RelativeLayout>
+        app:layout_constraintTop_toBottomOf="@+id/materialAutoCompleteTextView"
+        app:layout_constraintVertical_bias="0.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>
