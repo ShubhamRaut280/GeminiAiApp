@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "666715310067",
+    "project_id": "geminiaiapplication",
+    "storage_bucket": "geminiaiapplication.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:666715310067:android:01e7ad6f030c8482ca7486",
+        "android_client_info": {
+          "package_name": "com.shubham.geminiaiapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCibgCIr5rJfRs45ymbeO3lnr2x6e6MNDs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
