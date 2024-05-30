@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:textAlignment="textStart"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/prompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/popins"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:textDirection="rtl"
+        android:justificationMode="inter_word"
+        android:visibility="gone"
+        android:layout_gravity="right"
+        android:textAlignment="viewStart"
+        android:paddingTop="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="3dp"
+        android:layout_marginStart="30dp"
+        android:paddingBottom="5dp"
+
+        android:paddingStart="12dp"
+        android:paddingEnd="10dp"
+        android:background="@drawable/theme_for_prompt"/>
+
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/response"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/popins"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:visibility="gone"
+        android:textAlignment="viewStart"
+        android:textDirection="rtl"
+        android:justificationMode="inter_word"
+        android:paddingTop="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="30dp"
+        android:paddingBottom="5dp"
+        android:paddingStart="12dp"
+        android:paddingEnd="10dp"
+        android:background="@drawable/theme_for_response"/>
+
+</LinearLayout>

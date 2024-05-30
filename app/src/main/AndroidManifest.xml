@@ -12,7 +12,8 @@
         android:theme="@style/Theme.GeminiAiApp"
         tools:targetApi="31">
         <activity
-            android:name=".Ui.Activities.MainActivity"
+            android:name=".Ui.Activities.HomePage"
+            android:windowSoftInputMode="adjustPan"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
