@@ -52,7 +52,7 @@ class HomePage : AppCompatActivity() {
     }
 
     private fun init() {
-        setUpDrawer()
+
         adapter = ChatAdapter()
         setUpRecycler(binding.chatRecycler, adapter)
         binding.send.setOnClickListener {
@@ -101,27 +101,7 @@ class HomePage : AppCompatActivity() {
         binding.chatRecycler.scrollToPosition(chatList.size )
     }
 
-    private fun setUpDrawer(){
 
-        // Set up the navigation drawer
-        binding.navView.setNavigationItemSelectedListener { menuItem ->
-            // Handle menu item clicks here
-            when (menuItem.itemId) {
-                R.id.settingsmenu -> {
-                    // Navigate to the settings activity or fragment
-                    val intent = Intent(this, Settings::class.java)
-                    startActivity(intent)
-                }
-                R.id.profilemenu -> {
-                    // Navigate to the profile activity or fragment
-                    val intent = Intent(this, Profile::class.java)
-                    startActivity(intent)
-                }
-            }
-            binding.drawerlayout.closeDrawer(GravityCompat.START)
-            true
-        }
-    }
 
 
     private fun setUpRecycler(recycler: RecyclerView, adapter: ChatAdapter) {
@@ -148,4 +128,5 @@ class HomePage : AppCompatActivity() {
             inputMethodManager.hideSoftInputFromWindow(it.windowToken, 0)
         }
     }
+
 }
