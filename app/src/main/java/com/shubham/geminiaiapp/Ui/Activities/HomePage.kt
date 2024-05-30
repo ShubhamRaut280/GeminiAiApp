@@ -1,16 +1,21 @@
 package com.shubham.geminiaiapp.Ui.Activities
 
+import android.content.Intent
+import android.media.audiofx.Virtualizer
 import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.ai.client.generativeai.GenerativeModel
+import com.google.android.material.navigation.NavigationView
 import com.shubham.geminiaiapp.Adapters.ChatAdapter
 import com.shubham.geminiaiapp.Models.ChatModel
 import com.shubham.geminiaiapp.R
@@ -47,6 +52,7 @@ class HomePage : AppCompatActivity() {
     }
 
     private fun init() {
+        setUpDrawer()
         adapter = ChatAdapter()
         setUpRecycler(binding.chatRecycler, adapter)
         binding.send.setOnClickListener {
@@ -95,7 +101,27 @@ class HomePage : AppCompatActivity() {
         binding.chatRecycler.scrollToPosition(chatList.size )
     }
 
+    private fun setUpDrawer(){
 
+        // Set up the navigation drawer
+        binding.navView.setNavigationItemSelectedListener { menuItem ->
+            // Handle menu item clicks here
+            when (menuItem.itemId) {
+                R.id.settingsmenu -> {
+                    // Navigate to the settings activity or fragment
+                    val intent = Intent(this, Settings::class.java)
+                    startActivity(intent)
+                }
+                R.id.profilemenu -> {
+                    // Navigate to the profile activity or fragment
+                    val intent = Intent(this, Profile::class.java)
+                    startActivity(intent)
+                }
+            }
+            binding.drawerlayout.closeDrawer(GravityCompat.START)
+            true
+        }
+    }
 
 
     private fun setUpRecycler(recycler: RecyclerView, adapter: ChatAdapter) {
