@@ -113,17 +113,16 @@
            android:id="@+id/send"
            android:layout_width="45dp"
            android:layout_height="45dp"
+           android:layout_alignParentEnd="true"
+           android:layout_centerVertical="true"
            android:layout_marginEnd="5dp"
            android:layout_marginBottom="5dp"
            android:fontFamily="@font/popins"
-           app:icon="@drawable/send"
-           android:layout_centerVertical="true"
            android:paddingStart="12dp"
            android:paddingTop="5dp"
            android:paddingBottom="5dp"
-           app:iconSize="20dp"
-           android:layout_alignParentEnd="true"
-           />
+           app:icon="@drawable/send"
+           app:iconSize="20dp" />
    </RelativeLayout>
 
 

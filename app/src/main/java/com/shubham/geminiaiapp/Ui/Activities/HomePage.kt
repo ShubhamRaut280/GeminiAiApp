@@ -56,35 +56,41 @@ class HomePage : AppCompatActivity() {
         adapter = ChatAdapter()
         setUpRecycler(binding.chatRecycler, adapter)
         binding.send.setOnClickListener {
-            if (binding.pmpText.text.isNotEmpty()) {
-                val prompt = binding.pmpText.text.toString()
-                addItemToRecycler(prompt, null)
-                binding.pmpText.setText("")
-                toggleSendButton("stop")
-
-                lifecycleScope.launch {
-                   try {
-                       val response = withContext(Dispatchers.IO){
-                           generativeModel.generateContent(prompt)
-                       }
-
-                           addItemToRecycler(prompt, response.text)
-                   } catch (e: Exception) {
-                       addItemToRecycler(prompt, e.message)
-                       e.printStackTrace()
-                   }
-                    toggleSendButton("send")
-                }
-            } else {
-                Toast.makeText(this, "Please enter something", Toast.LENGTH_SHORT).show()
-            }
-            hideKeyboard()
+            respond()
 
         }
     }
+
+    private fun respond() {
+        if (binding.pmpText.text.isNotEmpty()) {
+            val prompt = binding.pmpText.text.toString()
+            addItemToRecycler(prompt, null)
+            binding.pmpText.setText("")
+            toggleSendButton("stop")
+
+            lifecycleScope.launch {
+                try {
+                    val response = withContext(Dispatchers.IO) {
+                        generativeModel.generateContent(prompt)
+                    }
+
+                    addItemToRecycler(prompt, response.text)
+                } catch (e: Exception) {
+                    addItemToRecycler(prompt, e.message)
+                    e.printStackTrace()
+                }
+                toggleSendButton("send")
+            }
+        } else {
+            Toast.makeText(this, "Please enter something", Toast.LENGTH_SHORT).show()
+        }
+        hideKeyboard()
+    }
+
     private fun addItemToRecycler(prompt: String, res: String?) {
 
         val chatModel = ChatModel(prompt, res)
+
         for (item in chatList) {
             if (item.prompt == prompt && item.response == null) {
                 chatList.remove(item)
@@ -92,7 +98,7 @@ class HomePage : AppCompatActivity() {
             }
 
         }
-         chatList.add(chatModel)
+        chatList.add(chatModel)
 
         // Submit the updated list to the adapter
         adapter.submitList(chatList.toList())
