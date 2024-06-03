@@ -2,6 +2,8 @@ package com.shubham.geminiaiapp.Ui.Activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.Gravity
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -54,6 +56,37 @@ class HomePage : AppCompatActivity() {
         init()
         setUpDrawer()
 
+        onclickListners()
+
+
+        val textWatcher  = object : TextWatcher{
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                if (p0.toString().isNotEmpty()) {
+                    binding.send.visibility = View.VISIBLE
+                }
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                if(p0.toString().isNotEmpty()){
+                    binding.send.visibility = View.VISIBLE
+                }else
+                    binding.send.visibility = View.GONE
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+                if(p0.toString().isNotEmpty()) {
+                    binding.send.visibility = View.VISIBLE
+                }
+            }
+
+        }
+
+
+        binding.pmpText.addTextChangedListener(textWatcher);
+
+    }
+
+    private fun onclickListners() {
         binding.more.setOnClickListener {
             binding.drawerlayout.openDrawer(GravityCompat.START)
         }
@@ -72,7 +105,7 @@ class HomePage : AppCompatActivity() {
             val prompt = binding.pmpText.text.toString()
             addItemToRecycler(prompt, null)
             binding.pmpText.setText("")
-            toggleSendButton("stop")
+            binding.stop.visibility = View.VISIBLE
 
             lifecycleScope.launch {
                 try {
@@ -84,7 +117,7 @@ class HomePage : AppCompatActivity() {
                     addItemToRecycler(prompt, e.message)
                     e.printStackTrace()
                 }
-                toggleSendButton("send")
+                binding.stop.visibility = View.GONE
             }
         } else {
             Toast.makeText(this, "Please enter something", Toast.LENGTH_SHORT).show()
@@ -92,7 +125,9 @@ class HomePage : AppCompatActivity() {
         hideKeyboard()
     }
 
+
     private fun addItemToRecycler(prompt: String, res: String?) {
+
         val chatModel = ChatModel(prompt, res)
         chatList.removeIf { it.prompt == prompt && it.response == null }
         chatList.add(chatModel)
@@ -105,12 +140,8 @@ class HomePage : AppCompatActivity() {
         recycler.adapter = adapter
     }
 
-    private fun toggleSendButton(arg: String) {
-        val icon = if (arg == "send") R.drawable.send else R.drawable.stop
-        binding.send.icon = getDrawable(icon)?.apply {
-            setTint(getColor(R.color.main))
-        }
-    }
+
+
 
     private fun hideKeyboard() {
         val inputMethodManager = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
@@ -155,4 +186,5 @@ class HomePage : AppCompatActivity() {
             true
         }
     }
+
 }

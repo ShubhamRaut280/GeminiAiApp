@@ -3,20 +3,23 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+
     android:orientation="vertical"
     android:padding="16dp"
-    android:background="@color/white">
+    android:background="@color/ligthbg">
+
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/signin"
-        android:layout_width="match_parent"
+        android:id="@+id/image"
+        android:layout_width="40dp"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/popins"
+        android:layout_margin="2dp"
+        android:backgroundTint="@color/darkbg"
         android:includeFontPadding="false"
-        android:textSize="14sp"
-        app:icon="@drawable/google"
-        android:gravity="center"
-        app:iconGravity="textStart"
-        android:text="Continue with Google"
-        />
+        android:paddingStart="10dp"
+        android:paddingBottom="5dp"
+        android:layout_gravity="center"
+        app:icon="@drawable/setting"
+        app:iconSize="20dp" />
+
 </LinearLayout>

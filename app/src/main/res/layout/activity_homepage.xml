@@ -6,6 +6,8 @@
     android:id="@+id/drawerlayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/ligthbg"
+
     tools:context=".Ui.Activities.HomePage">
 
     <!-- The main content -->
@@ -39,7 +41,7 @@
                 android:layout_alignParentStart="true"
                 app:icon="@drawable/more"
                 app:iconSize="25dp"
-                app:iconTint="@color/main" />
+                app:iconTint="@color/darkwhite" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/materialAutoCompleteTextView"
@@ -48,7 +50,7 @@
                 android:fontFamily="@font/popins"
                 android:padding="10dp"
                 android:text="Google Gemini"
-                android:textColor="@color/main"
+                android:textColor="@color/darkwhite"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:layout_toStartOf="@id/history"
@@ -67,9 +69,9 @@
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
                 android:layout_alignParentEnd="true"
-                app:icon="@drawable/history"
+                app:icon="@drawable/new_chat"
                 app:iconSize="25dp"
-                app:iconTint="@color/main" />
+                app:iconTint="@color/darkwhite" />
 
         </RelativeLayout>
 
@@ -83,48 +85,98 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/topNavBar" />
 
+
         <RelativeLayout
             android:id="@+id/pmpTextLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:background="@drawable/theme_for_textinput"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="15dp">
+            android:padding="10dp"
+            app:layout_constraintBottom_toBottomOf="parent">
 
             <EditText
                 android:id="@+id/pmpText"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:gravity="center_vertical"
-                android:hint="Ask something..."
-                android:includeFontPadding="false"
-                android:layout_toStartOf="@id/send"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="5dp"
+                android:layout_toStartOf="@+id/btnlayout"
+                android:background="@drawable/edit_text_background"
                 android:fontFamily="@font/popins"
-                android:padding="10dp"
-                android:textSize="16sp" />
+                android:gravity="center_vertical"
+                android:hint="Enter a prompt here"
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/send"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:layout_marginEnd="5dp"
-                android:layout_marginBottom="5dp"
+                android:includeFontPadding="false"
+                android:paddingStart="16dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="10dp"
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/darker_gray"
+                android:textSize="16sp"
+                android:textStyle="normal" />
+
+
+            <LinearLayout
+                android:id="@+id/btnlayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:fontFamily="@font/popins"
-                android:paddingStart="12dp"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                app:icon="@drawable/send"
-                app:iconSize="20dp" />
+                android:layout_marginEnd="2dp"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/image"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+                    android:backgroundTint="@color/darkbg"
+                    android:includeFontPadding="false"
+                    android:paddingStart="10dp"
+                    android:paddingBottom="5dp"
+                    app:icon="@drawable/add_img"
+                    app:iconSize="20dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/mic"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+                    android:backgroundTint="@color/darkbg"
+                    android:includeFontPadding="false"
+                    android:paddingStart="10dp"
+                    android:paddingBottom="5dp"
+                    app:icon="@drawable/mic"
+                    app:iconSize="20dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/send"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+                    android:backgroundTint="@color/darkbg"
+                    android:includeFontPadding="false"
+                    android:paddingStart="10dp"
+                    android:paddingBottom="5dp"
+                    android:visibility="gone"
+                    app:icon="@drawable/send"
+                    app:iconSize="20dp" />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/stop"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+                    android:backgroundTint="@color/darkbg"
+                    android:includeFontPadding="false"
+                    android:paddingStart="10dp"
+                    android:paddingBottom="5dp"
+                    android:visibility="gone"
+                    app:icon="@drawable/stop"
+                    app:iconSize="20dp" />
+            </LinearLayout>
 
         </RelativeLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <!-- The navigation drawer -->
@@ -134,6 +186,9 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         app:headerLayout="@layout/drawer_header"
-        app:menu="@menu/drawer_menu" />
+        app:menu="@menu/drawer_menu" >
+
+
+    </com.google.android.material.navigation.NavigationView>
 
 </androidx.drawerlayout.widget.DrawerLayout>
