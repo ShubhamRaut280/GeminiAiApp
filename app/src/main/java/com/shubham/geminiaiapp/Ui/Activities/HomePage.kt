@@ -49,6 +49,8 @@ class HomePage : AppCompatActivity() {
             apiKey = API_KEY
         )
         init()
+        setUpDrawer()
+
     }
 
     private fun init() {
@@ -132,6 +134,27 @@ class HomePage : AppCompatActivity() {
         val currentFocusedView = currentFocus
         currentFocusedView?.let {
             inputMethodManager.hideSoftInputFromWindow(it.windowToken, 0)
+        }
+    }
+    private fun setUpDrawer(){
+
+        // Set up the navigation drawer
+        binding.navView.setNavigationItemSelectedListener { menuItem ->
+            // Handle menu item clicks here
+            when (menuItem.itemId) {
+                R.id.settingsmenu -> {
+                    // Navigate to the settings activity or fragment
+                    val intent = Intent(this, Settings::class.java)
+                    startActivity(intent)
+                }
+                R.id.profilemenu -> {
+                    // Navigate to the profile activity or fragment
+                    val intent = Intent(this, Profile::class.java)
+                    startActivity(intent)
+                }
+            }
+            binding.drawerlayout.closeDrawer(GravityCompat.START)
+            true
         }
     }
 

@@ -20,8 +20,8 @@
             android:exported="false" />
         <activity
             android:name=".Ui.Activities.HomePage"
-            android:exported="true"
-            android:windowSoftInputMode="adjustPan|stateHidden">
+            android:windowSoftInputMode="adjustPan"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

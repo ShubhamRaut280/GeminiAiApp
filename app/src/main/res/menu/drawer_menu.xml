@@ -1,11 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-<item android:id="@+id/settingsmenu"
-    android:title="Setting"
-    android:icon="@drawable/setting"
-    />
 
-    <item android:id="@+id/profilemenu"
-        android:icon="@drawable/profile"
-        android:title="Profile"/>
 </menu>
