@@ -1,8 +1,9 @@
 package com.shubham.geminiaiapp.Ui.Activities
 
 import android.content.Intent
-import android.media.audiofx.Virtualizer
 import android.os.Bundle
+import android.view.Gravity
+import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -33,10 +34,11 @@ class HomePage : AppCompatActivity() {
     private val chatList = mutableListOf<ChatModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        binding = ActivityHomepageBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+        binding = ActivityHomepageBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        enableEdgeToEdge()
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -48,18 +50,20 @@ class HomePage : AppCompatActivity() {
             modelName = MODEL_NAME,
             apiKey = API_KEY
         )
+
         init()
         setUpDrawer()
 
+        binding.more.setOnClickListener {
+            binding.drawerlayout.openDrawer(GravityCompat.START)
+        }
     }
 
     private fun init() {
-
         adapter = ChatAdapter()
         setUpRecycler(binding.chatRecycler, adapter)
         binding.send.setOnClickListener {
             respond()
-
         }
     }
 
@@ -75,7 +79,6 @@ class HomePage : AppCompatActivity() {
                     val response = withContext(Dispatchers.IO) {
                         generativeModel.generateContent(prompt)
                     }
-
                     addItemToRecycler(prompt, response.text)
                 } catch (e: Exception) {
                     addItemToRecycler(prompt, e.message)
@@ -90,27 +93,12 @@ class HomePage : AppCompatActivity() {
     }
 
     private fun addItemToRecycler(prompt: String, res: String?) {
-
         val chatModel = ChatModel(prompt, res)
-
-        for (item in chatList) {
-            if (item.prompt == prompt && item.response == null) {
-                chatList.remove(item)
-                break
-            }
-
-        }
+        chatList.removeIf { it.prompt == prompt && it.response == null }
         chatList.add(chatModel)
-
-        // Submit the updated list to the adapter
         adapter.submitList(chatList.toList())
-
-        // Scroll to the last item in the RecyclerView
-        binding.chatRecycler.scrollToPosition(chatList.size )
+        binding.chatRecycler.scrollToPosition(chatList.size)
     }
-
-
-
 
     private fun setUpRecycler(recycler: RecyclerView, adapter: ChatAdapter) {
         recycler.layoutManager = LinearLayoutManager(this)
@@ -118,37 +106,47 @@ class HomePage : AppCompatActivity() {
     }
 
     private fun toggleSendButton(arg: String) {
-        if (arg == "send") {
-            binding.send.icon = getDrawable(R.drawable.send)?.apply {
-                setTint(getColor(R.color.main))
-            }
-        } else {
-            binding.send.icon = getDrawable(R.drawable.stop)?.apply {
-                setTint(getColor(R.color.main))
-            }
+        val icon = if (arg == "send") R.drawable.send else R.drawable.stop
+        binding.send.icon = getDrawable(icon)?.apply {
+            setTint(getColor(R.color.main))
         }
     }
 
-    fun hideKeyboard() {
+    private fun hideKeyboard() {
         val inputMethodManager = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
         val currentFocusedView = currentFocus
         currentFocusedView?.let {
             inputMethodManager.hideSoftInputFromWindow(it.windowToken, 0)
         }
     }
-    private fun setUpDrawer(){
 
-        // Set up the navigation drawer
+    private fun setUpDrawer() {
+        binding.drawerlayout.addDrawerListener(object : DrawerLayout.DrawerListener {
+            override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
+                val moveFactor = binding.navView.width * slideOffset
+                binding.main.translationX = moveFactor
+            }
+
+            override fun onDrawerOpened(drawerView: View) {
+                // Optional: Handle drawer opened event
+            }
+
+            override fun onDrawerClosed(drawerView: View) {
+                // Optional: Handle drawer closed event
+            }
+
+            override fun onDrawerStateChanged(newState: Int) {
+                // Optional: Handle drawer state change event
+            }
+        })
+
         binding.navView.setNavigationItemSelectedListener { menuItem ->
-            // Handle menu item clicks here
             when (menuItem.itemId) {
                 R.id.settingsmenu -> {
-                    // Navigate to the settings activity or fragment
                     val intent = Intent(this, Settings::class.java)
                     startActivity(intent)
                 }
                 R.id.profilemenu -> {
-                    // Navigate to the profile activity or fragment
                     val intent = Intent(this, Profile::class.java)
                     startActivity(intent)
                 }
@@ -157,5 +155,4 @@ class HomePage : AppCompatActivity() {
             true
         }
     }
-
 }

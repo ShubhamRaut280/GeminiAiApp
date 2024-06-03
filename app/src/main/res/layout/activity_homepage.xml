@@ -1,143 +1,139 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.drawerlayout.widget.DrawerLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+    android:id="@+id/drawerlayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Ui.Activities.HomePage">
 
-   <RelativeLayout
-       android:layout_width="match_parent"
-       android:id="@+id/topNavBar"
-       android:gravity="center_vertical"
-       app:layout_constraintEnd_toEndOf="parent"
-       app:layout_constraintStart_toStartOf="parent"
-       app:layout_constraintTop_toTopOf="parent"
-       android:layout_height="wrap_content">
-
-
-
-       <com.google.android.material.button.MaterialButton
-           android:id="@+id/more"
-           android:layout_width="45dp"
-           android:layout_height="45dp"
-           android:layout_marginEnd="5dp"
-           android:layout_marginBottom="5dp"
-           android:layout_marginStart="3dp"
-           android:fontFamily="@font/popins"
-           app:icon="@drawable/more"
-           app:iconTint="@color/main"
-           android:background="@android:color/transparent"
-           android:layout_centerVertical="true"
-           android:paddingStart="12dp"
-           android:paddingTop="5dp"
-           android:paddingBottom="5dp"
-           app:iconSize="25dp"
-           android:layout_alignParentStart="true"
-           />
-
-       <com.google.android.material.textview.MaterialTextView
-           android:id="@+id/materialAutoCompleteTextView"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:fontFamily="@font/popins"
-           app:fontFamily="@font/popins"
-           android:textColor="@color/main"
-           android:textStyle="bold"
-           android:padding="10dp"
-           android:layout_toStartOf="@id/history"
-           android:layout_toEndOf="@id/more"
-           android:text="Google Gemini"
-           android:textSize="18sp" />
-
-       <com.google.android.material.button.MaterialButton
-           android:id="@+id/history"
-           android:layout_width="45dp"
-           android:layout_height="45dp"
-           android:layout_marginEnd="5dp"
-           android:layout_marginBottom="5dp"
-           android:fontFamily="@font/popins"
-           android:background="@android:color/transparent"
-           app:icon="@drawable/history"
-           app:iconTint="@color/main"
-           android:layout_centerVertical="true"
-           android:paddingStart="12dp"
-           android:paddingTop="5dp"
-           android:paddingBottom="5dp"
-           app:iconSize="25dp"
-           android:layout_alignParentEnd="true"
-           />
-
-   </RelativeLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/chatRecycler"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginBottom="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/pmpTextLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/topNavBar"
-        app:layout_constraintVertical_bias="0.0" />
-
-   <RelativeLayout
-       android:id="@+id/pmpTextLayout"
-       android:layout_width="match_parent"
-       android:layout_margin="10dp"
-       android:background="@drawable/theme_for_textinput"
-       app:layout_constraintBottom_toBottomOf="parent"
-       app:layout_constraintStart_toStartOf="parent"
-       android:layout_marginTop="15dp"
-       android:layout_height="wrap_content">
-       <EditText
-           android:id="@+id/pmpText"
-           android:layout_width="0dp"
-           android:layout_height="wrap_content"
-           android:hint="Ask something..."
-           android:includeFontPadding="false"
-           android:gravity="center_vertical"
-           android:background="@android:color/transparent"
-           android:padding="10dp"
-           android:layout_toStartOf="@id/send"
-           android:fontFamily="@font/popins"
-           android:layout_marginEnd="5dp"
-           android:layout_centerVertical="true"
-           android:layout_alignParentStart="true"
-           android:textSize="16sp"/>
-
-       <com.google.android.material.button.MaterialButton
-           android:id="@+id/send"
-           android:layout_width="45dp"
-           android:layout_height="45dp"
-           android:layout_alignParentEnd="true"
-           android:layout_centerVertical="true"
-           android:layout_marginEnd="5dp"
-           android:layout_marginBottom="5dp"
-           android:fontFamily="@font/popins"
-           android:paddingStart="12dp"
-           android:paddingTop="5dp"
-           android:paddingBottom="5dp"
-           app:icon="@drawable/send"
-           app:iconSize="20dp" />
-   </RelativeLayout>
-    <androidx.drawerlayout.widget.DrawerLayout
-        android:id="@+id/drawerlayout"
+    <!-- The main content -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!-- Your main content goes here -->
+        <RelativeLayout
+            android:id="@+id/topNavBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.navigation.NavigationView
-            android:id="@+id/navView"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            app:menu="@menu/drawer_menu" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/more"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginStart="3dp"
+                android:background="@android:color/transparent"
+                android:fontFamily="@font/popins"
+                android:layout_centerVertical="true"
+                android:paddingStart="12dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:layout_alignParentStart="true"
+                app:icon="@drawable/more"
+                app:iconSize="25dp"
+                app:iconTint="@color/main" />
 
-    </androidx.drawerlayout.widget.DrawerLayout>
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/materialAutoCompleteTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/popins"
+                android:padding="10dp"
+                android:text="Google Gemini"
+                android:textColor="@color/main"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_toStartOf="@id/history"
+                android:layout_toEndOf="@id/more" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/history"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="5dp"
+                android:background="@android:color/transparent"
+                android:fontFamily="@font/popins"
+                android:layout_centerVertical="true"
+                android:paddingStart="12dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:layout_alignParentEnd="true"
+                app:icon="@drawable/history"
+                app:iconSize="25dp"
+                app:iconTint="@color/main" />
+
+        </RelativeLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/chatRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="10dp"
+            app:layout_constraintBottom_toTopOf="@+id/pmpTextLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/topNavBar" />
+
+        <RelativeLayout
+            android:id="@+id/pmpTextLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/theme_for_textinput"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="15dp">
+
+            <EditText
+                android:id="@+id/pmpText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:gravity="center_vertical"
+                android:hint="Ask something..."
+                android:includeFontPadding="false"
+                android:layout_toStartOf="@id/send"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="5dp"
+                android:fontFamily="@font/popins"
+                android:padding="10dp"
+                android:textSize="16sp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/send"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:fontFamily="@font/popins"
+                android:paddingStart="12dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                app:icon="@drawable/send"
+                app:iconSize="20dp" />
+
+        </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- The navigation drawer -->
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/navView"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:headerLayout="@layout/drawer_header"
+        app:menu="@menu/drawer_menu" />
+
+</androidx.drawerlayout.widget.DrawerLayout>
