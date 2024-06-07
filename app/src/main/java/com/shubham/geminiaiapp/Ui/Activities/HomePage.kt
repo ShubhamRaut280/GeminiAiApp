@@ -139,7 +139,7 @@ class HomePage : AppCompatActivity() {
     }
 
     private fun init() {
-        adapter = ChatAdapter()
+        adapter = ChatAdapter(this)
         setUpRecycler(binding.chatRecycler, adapter)
         binding.send.setOnClickListener {
             respond()
@@ -173,8 +173,8 @@ class HomePage : AppCompatActivity() {
 
 
     private fun addItemToRecycler(prompt: String, res: String?) {
-
-        val chatModel = ChatModel(prompt, res)
+        val imgUrl = auth.currentUser?.photoUrl.toString()
+        val chatModel = ChatModel(prompt, res, imgUrl )
         chatList.removeIf { it.prompt == prompt && it.response == null }
         chatList.add(chatModel)
         adapter.submitList(chatList.toList())
@@ -242,10 +242,14 @@ class HomePage : AppCompatActivity() {
             true
         }
     }
+
+    // Handle Google sign in
+
     private fun signIn() {
         val signInIntent = googleSignInClient.signInIntent
         startActivityForResult(signInIntent, RC_SIGN_IN)
     }
+
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -273,6 +277,7 @@ class HomePage : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     Toast.makeText(this, "Sign in successful", Toast.LENGTH_SHORT).show()
+                    setupProfile()
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithCredential:success")
                     val user = auth.currentUser
@@ -285,5 +290,10 @@ class HomePage : AppCompatActivity() {
                     // Update UI
                 }
             }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        adapter.shutdownTTS()
     }
 }
