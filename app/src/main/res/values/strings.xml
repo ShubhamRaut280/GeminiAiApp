@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">GeminiAiApp</string>
+    <string name="default_web_client_id">666715310067-em2vf5klaeodiffd4ds9s7fvejkn5070.apps.googleusercontent.com</string>
+
 </resources>

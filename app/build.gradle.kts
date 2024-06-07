@@ -56,4 +56,7 @@
         implementation(libs.generativeai)
         implementation (libs.kotlinx.coroutines.core)
         implementation (libs.kotlinx.coroutines.android)
+        implementation (libs.play.services.auth)
+        implementation (libs.glide)
+        implementation (libs.circleimageview)
     }

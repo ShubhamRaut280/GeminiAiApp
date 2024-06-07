@@ -12,7 +12,20 @@
           "package_name": "com.shubham.geminiaiapp"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "666715310067-em2vf5klaeodiffd4ds9s7fvejkn5070.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.shubham.geminiaiapp",
+            "certificate_hash": "e02cfc7533cc18a011d5c81afbf3e31e2a3c45ff"
+          }
+        },
+        {
+          "client_id": "666715310067-i6nu1lk4h29mkjcqjairgqebmg6ov46s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCibgCIr5rJfRs45ymbeO3lnr2x6e6MNDs"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "666715310067-i6nu1lk4h29mkjcqjairgqebmg6ov46s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

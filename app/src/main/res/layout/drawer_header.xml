@@ -4,11 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:paddingTop="30dp"
     android:orientation="horizontal"
-    android:padding="16dp"
-    android:background="@color/darkbg">
+    android:paddingStart="16dp"
+    android:paddingBottom="16dp"
+    android:background="@color/ligthbg">
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/profileImg"
         android:layout_marginTop="10dp"
         android:layout_width="80dp"
