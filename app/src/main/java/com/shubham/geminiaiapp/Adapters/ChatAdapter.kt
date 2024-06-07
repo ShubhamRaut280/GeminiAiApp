@@ -2,15 +2,13 @@ package com.shubham.geminiaiapp.Adapters
 
 import android.content.Context
 import android.speech.tts.TextToSpeech
+import android.speech.tts.UtteranceProgressListener
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageButton
 import android.widget.RelativeLayout
-import android.widget.Toast
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -19,15 +17,38 @@ import com.google.android.material.textview.MaterialTextView
 import com.shubham.geminiaiapp.Models.ChatModel
 import com.shubham.geminiaiapp.R
 import com.shubham.geminiaiapp.Utils.TextItemDiffCallback
+import com.shubham.geminiaiapp.Utils.Utils
 import de.hdodenhof.circleimageview.CircleImageView
 import java.util.*
 
 class ChatAdapter(private val context: Context) : ListAdapter<ChatModel, ChatAdapter.TextItemViewHolder>(TextItemDiffCallback()), TextToSpeech.OnInitListener {
 
     private var tts: TextToSpeech? = null
+    private var currentSpeakingButton: MaterialButton? = null
 
     init {
         tts = TextToSpeech(context, this)
+        tts?.setOnUtteranceProgressListener(object : UtteranceProgressListener() {
+            override fun onStart(utteranceId: String?) {
+                currentSpeakingButton?.post {
+                    currentSpeakingButton?.setIconResource(R.drawable.stop)
+                }
+            }
+
+            override fun onDone(utteranceId: String?) {
+                currentSpeakingButton?.post {
+                    currentSpeakingButton?.setIconResource(R.drawable.read)
+                }
+                currentSpeakingButton = null
+            }
+
+            override fun onError(utteranceId: String?) {
+                currentSpeakingButton?.post {
+                    currentSpeakingButton?.setIconResource(R.drawable.read)
+                }
+                currentSpeakingButton = null
+            }
+        })
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TextItemViewHolder {
@@ -51,6 +72,7 @@ class ChatAdapter(private val context: Context) : ListAdapter<ChatModel, ChatAda
         }
 
         holder.speakButton.setOnClickListener {
+            currentSpeakingButton = holder.speakButton
             speak(item.response ?: "No response available")
         }
     }
@@ -59,15 +81,20 @@ class ChatAdapter(private val context: Context) : ListAdapter<ChatModel, ChatAda
         if (status == TextToSpeech.SUCCESS) {
             val result = tts?.setLanguage(Locale.US)
             if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
-                Toast.makeText(context, "Language not supported", Toast.LENGTH_SHORT).show()
+                // Handle the error
+                Utils.stoast(context, "Language is not supported.")
             }
         } else {
-            Toast.makeText(context, "Initialization failed", Toast.LENGTH_SHORT).show()
+            // Initialization failed
+            Utils.stoast(context, "Initialization failed.")
         }
     }
 
+
     private fun speak(text: String) {
-        tts?.speak(text, TextToSpeech.QUEUE_FLUSH, null, null)
+        val params = HashMap<String, String>()
+        params[TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID] = text
+        tts?.speak(text, TextToSpeech.QUEUE_FLUSH, params)
     }
 
     fun shutdownTTS() {

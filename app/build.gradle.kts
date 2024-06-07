@@ -59,4 +59,10 @@
         implementation (libs.play.services.auth)
         implementation (libs.glide)
         implementation (libs.circleimageview)
+        // For coroutines
+        implementation (libs.kotlinx.coroutines.android.v150 )
+
+// For ViewModel
+        implementation (libs.androidx.lifecycle.viewmodel.ktx)
+
     }
