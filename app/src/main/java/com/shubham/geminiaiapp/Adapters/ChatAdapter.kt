@@ -19,7 +19,7 @@ import com.shubham.geminiaiapp.R
 import com.shubham.geminiaiapp.Utils.TextItemDiffCallback
 import com.shubham.geminiaiapp.Utils.Utils
 import de.hdodenhof.circleimageview.CircleImageView
-import java.util.*
+import java.util.Locale
 
 class ChatAdapter(private val context: Context) : ListAdapter<ChatModel, ChatAdapter.TextItemViewHolder>(TextItemDiffCallback()), TextToSpeech.OnInitListener {
 
@@ -39,14 +39,14 @@ class ChatAdapter(private val context: Context) : ListAdapter<ChatModel, ChatAda
                 currentSpeakingButton?.post {
                     currentSpeakingButton?.setIconResource(R.drawable.read)
                 }
-                currentSpeakingButton = null
+//                currentSpeakingButton = null
             }
 
             override fun onError(utteranceId: String?) {
                 currentSpeakingButton?.post {
                     currentSpeakingButton?.setIconResource(R.drawable.read)
                 }
-                currentSpeakingButton = null
+//                currentSpeakingButton = null
             }
         })
     }

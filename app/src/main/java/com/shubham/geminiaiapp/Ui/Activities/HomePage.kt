@@ -1,7 +1,9 @@
 package com.shubham.geminiaiapp.Ui.Activities
 
+import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.os.Bundle
+import android.speech.RecognizerIntent
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -45,6 +47,7 @@ class HomePage : AppCompatActivity() {
     companion object {
         private const val RC_SIGN_IN = 9001
         private const val TAG = "GoogleActivity"
+        private const val RESULT_SPEECH = 1;
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,6 +69,19 @@ class HomePage : AppCompatActivity() {
         setUpDrawer()
         onclickListners()
         login()
+
+        binding.mic.setOnClickListener {
+            var intent : Intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
+            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "en-US")
+            try {
+                startActivityForResult(intent, RESULT_SPEECH)
+                binding.pmpText.setText("")
+            } catch (e: ActivityNotFoundException) {
+                Toast.makeText( this@HomePage,"Your device doesn't support speech to text", Toast.LENGTH_SHORT).show()
+                e.printStackTrace()
+            }
+        }
 
         val textWatcher = object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -100,6 +116,10 @@ class HomePage : AppCompatActivity() {
             binding.stop.visibility = if (isLoading) View.VISIBLE else View.GONE
         })
     }
+
+
+
+
 
     private fun login() {
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -140,10 +160,11 @@ class HomePage : AppCompatActivity() {
 
     private fun respond() {
         if (binding.pmpText.text.isNotEmpty()) {
-            val prompt = binding.pmpText.text.toString()
-            viewModel.addPrompt(prompt)
-            binding.pmpText.setText("")
             val imgUrl = auth.currentUser?.photoUrl.toString()
+
+            val prompt = binding.pmpText.text.toString()
+            viewModel.addPrompt(prompt,imgUrl)
+            binding.pmpText.setText("")
             viewModel.generateResponse(prompt, imgUrl)
         } else {
             Toast.makeText(this, "Please enter something", Toast.LENGTH_SHORT).show()
@@ -222,6 +243,12 @@ class HomePage : AppCompatActivity() {
         if (requestCode == RC_SIGN_IN) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             handleSignInResult(task)
+        }
+        if(requestCode== RESULT_SPEECH && resultCode== RESULT_OK && data!=null){
+            val list = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
+            if (list!=null && list.isNotEmpty()){
+                binding.pmpText.setText(list.get(0));
+            }
         }
     }
 

@@ -28,8 +28,8 @@ class HomePageViewModel : ViewModel() {
 
     private val currentChatList = mutableListOf<ChatModel>()
 
-    fun addPrompt(prompt: String) {
-        currentChatList.add(ChatModel(prompt, null, ""))
+    fun addPrompt(prompt: String, userImageUrl: String?) {
+        currentChatList.add(ChatModel(prompt, null, userImageUrl))
         _chatList.value = currentChatList.toList()
     }
 
@@ -38,11 +38,10 @@ class HomePageViewModel : ViewModel() {
         viewModelScope.launch {
             try {
                 val response = withContext(Dispatchers.IO) {
-                  if(chatList.value.isNullOrEmpty())
-                      generativeModel.generateContent(prompt)
+                    if (chatList.value.isNullOrEmpty())
+                        generativeModel.generateContent(prompt)
                     else
-                        multimodalresponse(prompt);
-
+                        multimodalresponse(prompt)
                 }
                 val chatModel = ChatModel(prompt, response.text, userImageUrl)
                 currentChatList.removeIf { it.prompt == prompt && it.response == null }
@@ -74,12 +73,7 @@ class HomePageViewModel : ViewModel() {
         }
         val chat = generativeModel.startChat(history = history)
 
-       val response = chat.sendMessage(prompt)
-        return response;
+        val response = chat.sendMessage(prompt)
+        return response
     }
-
-
-
-
 }
-
